@@ -1,0 +1,61 @@
+app-id: com.front.Front
+runtime: org.freedesktop.Platform
+runtime-version: "24.08"
+sdk: org.freedesktop.Sdk
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.node22
+base: org.electronjs.Electron2.BaseApp
+base-version: "24.08"
+command: com.front.Front
+tags:
+  - proprietary
+separate-locales: false
+build-options:
+  append-path: /usr/lib/sdk/node22/bin
+finish-args:
+  - --socket=x11
+  - --socket=pulseaudio
+  - --device=dri
+  - --filesystem=xdg-download
+  - --share=network
+  - --talk-name=com.canonical.Unity
+  - --talk-name=org.freedesktop.portal.Desktop
+  - --talk-name=org.freedesktop.Notifications
+  - --env=XCURSOR_PATH=/run/host/user-share/icons:/run/host/share/icons
+  - --env=ELECTRON_TRASH=gio
+  - --env=SIMULATE_WIN32_UI=true
+modules:
+  - name: front
+    buildsystem: simple
+    build-commands:
+      - chmod +x front.AppImage
+      - ./front.AppImage --appimage-extract
+
+      - mkdir /app/front
+      - mv squashfs-root/* /app/front
+      - find /app/front -type d -exec chmod 755 {} +
+      - find /app/front -type f -exec chmod 644 {} +
+
+      - mv /app/front/usr/lib/* /app/lib
+      - |
+        for s in 16 32 48 64 128 256 512; do
+          install -Dm644 /app/front/usr/share/icons/hicolor/${s}x${s}/apps/front.png /app/share/icons/hicolor/${s}x${s}/apps/${FLATPAK_ID}.png
+        done
+      - rm -rf /app/front/usr
+      - chmod +x /app/front/front /app/front/chrome-sandbox /app/front/chrome_crashpad_handler
+      - patch-desktop-filename /app/front/resources/app.asar
+
+      - install -Dm644 com.front.Front.desktop -t /app/share/applications
+      - install -Dm755 front.sh /app/bin/com.front.Front
+
+    sources:
+      - type: file
+        dest-filename: front.AppImage
+        url: https://dl.frontapp.com/desktop/builds/3.63.2/Front-3.63.2-x86_64.AppImage
+        sha256: eb45b1916e687c6d3520a649ac17c38be4e824d48a7537348f4de1275ab8cf87
+
+      - type: file
+        path: com.front.Front.desktop
+
+      - type: file
+        path: front.sh
