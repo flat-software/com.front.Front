@@ -14,8 +14,16 @@
   </description>
   <screenshots>
     <screenshot type="default">
-      <image>https://code.visualstudio.com/home/home-screenshot-linux-lg.png</image>
-      <caption>Editing TypeScript and searching for extensions</caption>
+      <image>https://raw.githubusercontent.com/flat-software/com.front.Front/742d67c8cd70733186253112c7e2894de07f90a5/screenshots/screenshot1.png</image>
+      <caption>All your ticketing needs in one place.</caption>
+    </screenshot>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/flat-software/com.front.Front/742d67c8cd70733186253112c7e2894de07f90a5/screenshots/screenshot2.png</image>
+      <caption>Powerful AI features at your fingertips.</caption>
+    </screenshot>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/flat-software/com.front.Front/742d67c8cd70733186253112c7e2894de07f90a5/screenshots/screenshot3.png</image>
+      <caption>Build advanced workflows to handle any situation.</caption>
     </screenshot>
   </screenshots>
   <launchable type="desktop-id">com.front.Front.desktop</launchable>
