@@ -46,7 +46,7 @@ modules:
       - patch-desktop-filename /app/front/resources/app.asar
 
       - install -Dm644 com.front.Front.desktop -t /app/share/applications
-      - install -Dm644 com.visualstudio.code.metainfo.xml -t /app/share/metainfo
+      - install -Dm644 com.front.Front.metainfo.xml -t /app/share/metainfo
       - install -Dm755 front.sh /app/bin/com.front.Front
 
     sources:
