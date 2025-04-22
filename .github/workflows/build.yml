@@ -11,12 +11,18 @@ jobs:
   flatpak:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-48
+      image: ghcr.io/flathub-infra/flatpak-github-actions:freedesktop-24.08
       options: --privileged
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          curl -L https://github.com/regclient/regclient/releases/v0.8.2/download/regctl-linux-amd64 > regctl
+          chmod 755 regctl
+          mv regctl /usr/bin
 
       - name: Build
         uses: flatpak/flatpak-github-actions/flatpak-builder@v6
