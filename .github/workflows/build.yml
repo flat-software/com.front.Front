@@ -20,20 +20,13 @@ jobs:
 
       - name: Install dependencies
         run: |
+          curl https://download.docker.com/linux/static/stable/x86_64/docker-28.1.1.tgz --output ./docker.tgz
+          tar xzvf docker.tgz
+          mv docker/* /usr/sbin
+
           curl -L https://github.com/regclient/regclient/releases/v0.8.2/download/regctl-linux-amd64 > regctl
           chmod 755 regctl
           mv regctl /usr/sbin
-
-      - name: Build
-        uses: flatpak/flatpak-github-actions/flatpak-builder@v6
-        with:
-          branch: stable
-          manifest-path: com.front.Front.yml
-          build-bundle: false
-
-      - name: Build image
-        run: |
-          flatpak build-bundle ./repo ./image com.front.Front stable --oci
 
       - name: Login to FlatArtifacts
         uses: docker/login-action@v3
@@ -45,3 +38,14 @@ jobs:
       - name: Push
         run: |
           regctl
+
+      - name: Build
+        uses: flatpak/flatpak-github-actions/flatpak-builder@v6
+        with:
+          branch: stable
+          manifest-path: com.front.Front.yml
+          build-bundle: false
+
+      - name: Build image
+        run: |
+          flatpak build-bundle ./repo ./image com.front.Front stable --oci
