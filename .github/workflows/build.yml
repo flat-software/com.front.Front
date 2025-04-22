@@ -48,12 +48,19 @@ jobs:
 
       - name: Push
         run: |
+          echo "Update index."
           jq '.manifests[0].annotations["org.opencontainers.image.ref.name"] = "repo/com.front.front:stable"' ./image/index.json > tmp.json
           mv tmp.json ./image/index.json
 
+          echo "Get variables."
           digest=$(regctl image digest artifacts.flat.software/flatpaks/com.front.front:latest)
           version=$(xmllint --xpath 'string(//release[1]/@version)' com.front.Front.metainfo.xml)
 
+          echo "Copy latest."
           regctl image copy ocidir://image:stable "artifacts.flat.software/flatpaks/com.front.front:latest"
+
+          echo "Copy stable."
           regctl image copy ocidir://image:stable "artifacts.flat.software/flatpaks/com.front.front:stable"
+
+          echo "Copy $version."
           regctl image copy ocidir://image:stable "artifacts.flat.software/flatpaks/com.front.front:$version"
