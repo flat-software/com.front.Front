@@ -7,6 +7,9 @@ on:
     tags:
       - v*
 
+env:
+  REGISTRY_USERNAME: github
+
 jobs:
   flatpak:
     runs-on: ubuntu-latest
@@ -22,7 +25,7 @@ jobs:
         run: |
           curl -L https://github.com/regclient/regclient/releases/v0.8.2/download/regctl-linux-amd64 > regctl
           chmod 755 regctl
-          mv regctl /usr/bin
+          mv regctl /usr/sbin
 
       - name: Build
         uses: flatpak/flatpak-github-actions/flatpak-builder@v6
@@ -34,6 +37,13 @@ jobs:
       - name: Build image
         run: |
           flatpak build-bundle ./repo ./image com.front.Front stable --oci
+
+      - name: Login to FlatArtifacts
+        uses: docker/login-action@v3
+        with:
+          registry: artifacts.flat.software
+          username: ${{ vars.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
 
       - name: Push
         run: |
