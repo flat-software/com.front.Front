@@ -1,0 +1,34 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - v*
+
+jobs:
+  flatpak:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-48
+      options: --privileged
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build
+        uses: flatpak/flatpak-github-actions/flatpak-builder@v6
+        with:
+          branch: stable
+          manifest-path: com.front.Front.yml
+          build-bundle: false
+
+      - name: Build image
+        run: |
+          flatpak build-bundle ./repo ./image com.front.Front stable --oci
+
+      - name: Push
+        run: |
+          regctl
