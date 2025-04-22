@@ -39,7 +39,7 @@ jobs:
         run: |
           flatpak build-bundle ./repo ./image com.front.Front stable --oci
 
-      - name: Login to FlatArtifacts
+      - name: Login to registry
         uses: docker/login-action@v3
         with:
           registry: artifacts.flat.software
@@ -48,6 +48,9 @@ jobs:
 
       - name: Push
         run: |
+          jq '.manifests[0].annotations["org.opencontainers.image.ref.name"] = "repo/com.front.front:stable"' ./image/index.json > tmp.json
+          mv tmp.json ./image/index.json
+
           regctl image copy oci:./image artifacts.flat.software/flatpaks/com.front.front:latest
 
           digest=$(regctl image digest artifacts.flat.software/flatpaks/com.front.front:latest)
