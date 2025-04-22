@@ -51,10 +51,9 @@ jobs:
           jq '.manifests[0].annotations["org.opencontainers.image.ref.name"] = "repo/com.front.front:stable"' ./image/index.json > tmp.json
           mv tmp.json ./image/index.json
 
-          regctl image copy ocidir://image:stable artifacts.flat.software/flatpaks/com.front.front:latest
-
           digest=$(regctl image digest artifacts.flat.software/flatpaks/com.front.front:latest)
           version=$(xmllint --xpath 'string(//release[1]/@version)' com.front.Front.metainfo.xml)
 
-          regctl tag set artifacts.flat.software/flatpaks/com.front.front:stable "$digest"
-          regctl tag set "artifacts.flat.software/flatpaks/com.front.front:$version" "$digest"
+          regctl image copy ocidir://image:stable "artifacts.flat.software/flatpaks/com.front.front:latest"
+          regctl image copy ocidir://image:stable "artifacts.flat.software/flatpaks/com.front.front:stable"
+          regctl image copy ocidir://image:stable "artifacts.flat.software/flatpaks/com.front.front:$version"
