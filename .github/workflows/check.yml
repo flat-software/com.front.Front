@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  flatpak-external-data-checker:
+  check:
     runs-on: ubuntu-latest
 
     steps:
