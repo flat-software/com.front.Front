@@ -53,7 +53,10 @@ modules:
       - type: file
         dest-filename: front.AppImage
         url: https://dl.frontapp.com/desktop/builds/3.63.2/Front-3.63.2-x86_64.AppImage
-        sha256: eb45b1916e687c6d3520a649ac17c38be4e824d48a7537348f4de1275ab8cf87
+        sha512: 6c9c92e87610f6994c824ae7c74d8cc3c659133dcde52cfe1a62ec5dd08f1c551d8f0597ca1cac3317c5c4c254146f1ce5f3e1558eed799ff2ce2b4a30f6cf08
+        x-checker-data:
+          type: electron-updater
+          url: https://dl.frontapp.com/desktop/updates/latest/linux-x64-AppImage/latest-linux.yml
 
       - type: file
         path: com.front.Front.desktop
