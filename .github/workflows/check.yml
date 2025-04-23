@@ -11,15 +11,14 @@ jobs:
   flatpak-external-data-checker:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        branch:
-          - main
-
     steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ matrix.branch }}
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set dynamic env vars
+        run: |
+          REPO_NAME="${GITHUB_REPOSITORY##*/}"
+          echo "REPO_NAME=$REPO_NAME" >> $GITHUB_ENV
 
       - uses: docker://ghcr.io/flathub/flatpak-external-data-checker:latest
         env:
@@ -29,4 +28,4 @@ jobs:
           GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          args: --update --never-fork ${GITHUB_REPOSITORY##*/}.yml
+          args: --update --never-fork ${{ env.REPO_NAME }}.yml
