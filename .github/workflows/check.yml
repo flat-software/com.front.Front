@@ -1,8 +1,8 @@
 name: Check for updates
 on:
-  # Run every hour.
+  # Run every day.
   schedule:
-    - cron: "0 * * * *"
+    - cron: "0 0 * * *"
 
   # Manual trigger.
   workflow_dispatch:
