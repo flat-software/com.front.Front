@@ -1,9 +1,13 @@
 name: Build
 
 on:
+  # New version.
   push:
     tags:
       - v*
+
+  # Manual trigger.
+  workflow_dispatch:
 
 jobs:
   flatpak:
