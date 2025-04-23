@@ -15,6 +15,12 @@ jobs:
       options: --privileged
 
     steps:
+      - name: Set dynamic env vars
+        run: |
+          REPO_NAME="${GITHUB_REPOSITORY##*/}"
+          echo "REPO_NAME=$REPO_NAME" >> $GITHUB_ENV
+          echo "REPO_NAME_LOWER=$(echo "$REPO_NAME" | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -32,35 +38,35 @@ jobs:
         uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
           branch: stable
-          manifest-path: com.front.Front.yml
+          manifest-path: ${{ env.REPO_NAME }}.yml
           build-bundle: false
 
       - name: Build image
         run: |
-          flatpak build-bundle ./repo ./image com.front.Front stable --oci
+          flatpak build-bundle ./repo ./image $REPO_NAME stable --oci
 
-      - name: Login to registry
-        uses: docker/login-action@v3
-        with:
-          registry: artifacts.flat.software
-          username: ${{ vars.REGISTRY_USERNAME }}
-          password: ${{ secrets.REGISTRY_PASSWORD }}
+      # - name: Login to registry
+      #   uses: docker/login-action@v3
+      #   with:
+      #     registry: artifacts.flat.software
+      #     username: ${{ vars.REGISTRY_USERNAME }}
+      #     password: ${{ secrets.REGISTRY_PASSWORD }}
 
-      - name: Push
-        run: |
-          echo "Update index."
-          jq '.manifests[0].annotations["org.opencontainers.image.ref.name"] = "repo/com.front.front:stable"' ./image/index.json > tmp.json
-          mv tmp.json ./image/index.json
+      # - name: Push
+      #   run: |
+      #     echo "Update index."
+      #     jq '.manifests[0].annotations["org.opencontainers.image.ref.name"] = "repo/$REPO_NAME_LOWERCASE:stable"' ./image/index.json > tmp.json
+      #     mv tmp.json ./image/index.json
 
-          echo "Get variables."
-          digest=$(regctl image digest artifacts.flat.software/flatpaks/com.front.front:latest)
-          version=$(xmllint --xpath 'string(//release[1]/@version)' com.front.Front.metainfo.xml)
+      #     echo "Get variables."
+      #     digest=$(regctl image digest artifacts.flat.software/flatpaks/$REPO_NAME_LOWERCASE:latest)
+      #     version=$(xmllint --xpath 'string(//release[1]/@version)' $REPO_NAME_LOWERCASE.metainfo.xml)
 
-          echo "Copy latest."
-          regctl image copy ocidir://image:stable "artifacts.flat.software/flatpaks/com.front.front:latest"
+      #     echo "Copy latest."
+      #     regctl image copy ocidir://image:stable "artifacts.flat.software/flatpaks/$REPO_NAME_LOWERCASE:latest"
 
-          echo "Copy stable."
-          regctl image copy ocidir://image:stable "artifacts.flat.software/flatpaks/com.front.front:stable"
+      #     echo "Copy stable."
+      #     regctl image copy ocidir://image:stable "artifacts.flat.software/flatpaks/$REPO_NAME_LOWERCASE:stable"
 
-          echo "Copy $version."
-          regctl image copy ocidir://image:stable "artifacts.flat.software/flatpaks/com.front.front:$version"
+      #     echo "Copy $version."
+      #     regctl image copy ocidir://image:stable "artifacts.flat.software/flatpaks/$REPO_NAME_LOWERCASE:$version"
