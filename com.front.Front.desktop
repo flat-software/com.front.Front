@@ -1,8 +1,8 @@
 [Desktop Entry]
+Type=Application
 Name=Front
 Comment=Front
 Exec=com.front.Front
-Type=Application
 Icon=com.front.Front
 StartupWMClass=Front
 MimeType=x-scheme-handler/mailto;x-scheme-handler/mailto-frontapp;x-scheme-handler/frontapp-mailto;x-scheme-handler/front;x-scheme-handler/frontapp;
