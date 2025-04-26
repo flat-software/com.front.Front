@@ -8,8 +8,7 @@ command: com.front.Front
 tags:
   - proprietary
 separate-locales: false
-build-options:
-  append-path: /usr/lib/sdk/node22/bin
+
 finish-args:
   - --socket=x11
   - --socket=pulseaudio
@@ -22,6 +21,7 @@ finish-args:
   - --env=XCURSOR_PATH=/run/host/user-share/icons:/run/host/share/icons
   - --env=ELECTRON_TRASH=gio
   - --env=SIMULATE_WIN32_UI=true
+
 modules:
   - name: front
     buildsystem: simple
