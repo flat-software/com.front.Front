@@ -3,8 +3,10 @@
   <id>com.front.Front</id>
   <launchable type="desktop-id">com.front.Front.desktop</launchable>
   <name>Front</name>
-  <developer_name>FrontApp Inc.</developer_name>
   <summary>Meet the future of customer service.</summary>
+  <developer id="com.front">
+    <name>FrontApp Inc.</name>
+  </developer>
   <url type="homepage">https://front.com/</url>
   <url type="help">https://help.front.com/</url>
   <project_license>LicenseRef-proprietary=https://front.com/legal/terms-of-service-2022-10-03</project_license>
