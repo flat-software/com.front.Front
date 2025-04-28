@@ -20,7 +20,6 @@ finish-args:
   - --talk-name=org.freedesktop.Notifications
   - --env=XCURSOR_PATH=/run/host/user-share/icons:/run/host/share/icons
   - --env=ELECTRON_TRASH=gio
-  - --env=SIMULATE_WIN32_UI=true
 
 modules:
   - name: front
@@ -43,9 +42,9 @@ modules:
       - chmod +x /app/front/front /app/front/chrome-sandbox /app/front/chrome_crashpad_handler
       - patch-desktop-filename /app/front/resources/app.asar
 
-      - install -Dm644 com.front.Front.desktop -t /app/share/applications
-      - install -Dm644 com.front.Front.metainfo.xml -t /app/share/metainfo
-      - install -Dm755 front.sh /app/bin/com.front.Front
+      - install -Dm644 ${FLATPAK_ID}.desktop -t /app/share/applications
+      - install -Dm644 ${FLATPAK_ID}.metainfo.xml -t /app/share/metainfo
+      - install -Dm755 front.sh /app/bin/${FLATPAK_ID}
 
     sources:
       - type: file
