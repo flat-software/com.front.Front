@@ -1,7 +1,6 @@
 [Desktop Entry]
 Type=Application
 Name=Front
-Comment=Front
 Exec=com.front.Front
 Icon=com.front.Front
 StartupWMClass=Front
