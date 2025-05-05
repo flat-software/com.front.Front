@@ -42,9 +42,9 @@ modules:
       - chmod +x /app/front/front /app/front/chrome-sandbox /app/front/chrome_crashpad_handler
       - patch-desktop-filename /app/front/resources/app.asar
 
+      - install -Dm755 front.sh /app/bin/${FLATPAK_ID}
       - install -Dm644 ${FLATPAK_ID}.desktop -t /app/share/applications
       - install -Dm644 ${FLATPAK_ID}.metainfo.xml -t /app/share/metainfo
-      - install -Dm755 front.sh /app/bin/${FLATPAK_ID}
 
     sources:
       - type: file
@@ -56,10 +56,10 @@ modules:
           url: https://dl.frontapp.com/desktop/updates/latest/linux-x64-AppImage/latest-linux.yml
 
       - type: file
+        path: front.sh
+
+      - type: file
         path: com.front.Front.desktop
 
       - type: file
         path: com.front.Front.metainfo.xml
-
-      - type: file
-        path: front.sh
