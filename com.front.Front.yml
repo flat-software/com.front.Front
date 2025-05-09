@@ -34,14 +34,15 @@ modules:
       - find /app/front -type f -exec chmod 644 {} +
 
       - mv /app/front/usr/lib/* /app/lib
-      - |
-        for s in 16 32 48 64 128 256 512; do
-          install -Dm644 /app/front/usr/share/icons/hicolor/${s}x${s}/apps/front.png /app/share/icons/hicolor/${s}x${s}/apps/${FLATPAK_ID}.png
-        done
       - rm -rf /app/front/usr
       - chmod +x /app/front/front /app/front/chrome-sandbox /app/front/chrome_crashpad_handler
       - patch-desktop-filename /app/front/resources/app.asar
 
+      - |
+        for s in 16 32 64 128 256 512; do
+          install -Dm644 icon${s}.png /app/share/icons/hicolor/${s}x${s}/apps/${FLATPAK_ID}.png
+        done
+      - install -Dm644 icon.svg /app/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg
       - install -Dm755 front.sh /app/bin/${FLATPAK_ID}
       - install -Dm644 ${FLATPAK_ID}.desktop -t /app/share/applications
       - install -Dm644 ${FLATPAK_ID}.metainfo.xml -t /app/share/metainfo
@@ -63,3 +64,24 @@ modules:
 
       - type: file
         path: com.front.Front.metainfo.xml
+
+      - type: file
+        path: icons/icon.svg
+
+      - type: file
+        path: icons/icon16.png
+
+      - type: file
+        path: icons/icon32.png
+
+      - type: file
+        path: icons/icon64.png
+
+      - type: file
+        path: icons/icon128.png
+
+      - type: file
+        path: icons/icon256.png
+
+      - type: file
+        path: icons/icon512.png
