@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
   <id>com.front.Front</id>
   <launchable type="desktop-id">com.front.Front.desktop</launchable>
@@ -38,8 +38,11 @@
     <display_length compare="ge">768</display_length>
   </requires>
   <releases>
-    <release version="3.63.2-2" date="2025-05-09"/>
-    <release version="3.63.2-1" date="2025-04-24"/>
-    <release version="3.63.2" date="2025-04-10"/>
+    <release version="3.65.1" date="2019-07-31">
+      <description>Upgrade to Electron 35.2.2 and Chromium 134.</description>
+    </release>
+    <release version="3.63.2" date="2025-04-10">
+      <description>Update to Electron 34.2.0.</description>
+    </release>
   </releases>
 </component>
