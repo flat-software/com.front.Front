@@ -42,7 +42,7 @@
       <description>Upgrade to Electron 35.2.2 and Chromium 134.</description>
     </release>
     <release version="3.63.2" date="2025-04-10">
-      <description>Update to Electron 34.2.0</description>
+      <description>Update to Electron 34.2.0.</description>
     </release>
   </releases>
 </component>
