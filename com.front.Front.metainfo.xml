@@ -38,6 +38,9 @@
     <display_length compare="ge">768</display_length>
   </requires>
   <releases>
+    <release version="3.63.2" date="2019-07-31">
+      <description></description>
+    </release>
     <release version="3.65.1" date="2025-05-14">
       <description>
         <p>Upgrade to Electron 35.2.2 and Chromium 134.</p>
