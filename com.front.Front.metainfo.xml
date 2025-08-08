@@ -38,12 +38,9 @@
     <display_length compare="ge">768</display_length>
   </requires>
   <releases>
-    <release version="3.65.4" date="2019-07-31">
-      <description></description>
-    </release>
-    <release version="3.63.2" date="2019-07-31">
+    <release version="3.65.4" date="2025-06-15">
       <description>
-        <p>Stability improvements.</p>
+        <p>Temporary downgrade to Chromium 132 and Electron 34 while issues with Chromium 134 are being resolved.</p>
       </description>
     </release>
     <release version="3.65.1" date="2025-05-14">
