@@ -50,8 +50,8 @@ modules:
     sources:
       - type: file
         dest-filename: front.AppImage
-        url: https://dl.frontapp.com/desktop/builds/3.63.2/Front-3.63.2-x86_64.AppImage
-        sha512: 6c9c92e87610f6994c824ae7c74d8cc3c659133dcde52cfe1a62ec5dd08f1c551d8f0597ca1cac3317c5c4c254146f1ce5f3e1558eed799ff2ce2b4a30f6cf08
+        url: https://dl.frontapp.com/desktop/builds/3.65.4/Front-3.65.4-x86_64.AppImage
+        sha512: 290ca39bc617178566a9b8c5f03078f0f1cd555c056162599315bc466e6daeb9a1e21a080bf8fe43d96bc9571380919e064bfd0e1ba43b364fe4995e6a3ec476
         x-checker-data:
           type: electron-updater
           url: https://dl.frontapp.com/desktop/updates/latest/linux-x64-AppImage/latest-linux.yml
